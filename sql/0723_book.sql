@@ -1,0 +1,38 @@
+-- create database BookDB;
+use BookDB;
+/* create table TestTable(
+	col_1 int,
+    col_2 varchar(20),
+    col_3 datetime
+);-*/
+-- drop table TestTable;
+
+/* create table Book(
+	bookid int,
+    bookname varchar(20),
+    publisher varchar(20),
+    price int
+);
+
+insert into Book(bookid, bookname, publisher, price)
+values(100, '데이터베이스', '한빛아카데미', 27000);
+insert into Book(bookid, bookname, publisher, price)
+values(101, '파이썬', '한빛아카데미', 22000);
+insert into Book(bookid, bookname, publisher, price)
+values(102, 'JSP 프로그래밍', '생능출판사', 26000);
+insert into Book(bookid, bookname, publisher, price)
+values(103, '자바스크립트', '길벗', 45000);
+insert into Book(bookid, bookname, publisher, price)
+values(104, '데이터베이스 배움터', '생능출판사', 30000);*/
+
+select * from book order by bookname asc;
+
+select * from book order by bookname;
+
+select * from book order by price;
+
+select * from book order by bookname desc;
+
+select * from book order by price desc;
+
+
