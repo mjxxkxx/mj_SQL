@@ -6,7 +6,8 @@ use StudentDB;
     age int,
     address varchar(20),
     course varchar(20)
-);
+); */
+
 insert into StudentInfo(id, name, age, address, course)
 values(1, '문종헌', 24, '서울', '영어');
 insert into StudentInfo(id, name, age, address, course)
@@ -22,12 +23,14 @@ values(6, '박홍진', 22, '부산', '컴퓨터');
 insert into StudentInfo(id, name, age, address, course)
 values(7, '공지훈', 28, '강원', '국어');
 insert into StudentInfo(id, name, age, address, course)
-values(8, '정희성', 30, '대전', '음악');
+values(8, '정희성', 30, '제주', '음악');
 insert into StudentInfo(id, name, age, address, course)
 values(9, '이봉림', 34, '대전', '영어');
 insert into StudentInfo(id, name, age, address, course)
-values(10, '김현우', 21, '서울', '컴퓨터');*/
+values(10, '김현우', 21, '서울', '컴퓨터');
 
+
+select id, name from StudentInfo;
 -- 나이가 30 이상인 학생 정보 검색
 select * from StudentInfo where age >= 30;
 
