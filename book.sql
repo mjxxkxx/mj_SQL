@@ -199,7 +199,13 @@ create table newBook(
 -- 데이터 삽입하기
 /*insert into newBook(bookid, bookname, publisher, price)
 values(100, '데이터베이스', '한빛아카데미', 27000);
+
+-- 기본키 중복 불가
 insert into newBook(bookid, bookname, publisher, price)
-values(100, '프로그래밍', '한빛아카데미', 30000);
+values(100, '프로그래밍', '한빛아카데미', 30000); 기본키로 저장됐어서 중복으로 저장 못해!
+
+-- 기본키는 null값을 가질 수 없다
 insert into newBook(bookid, bookname, publisher, price)
 values(null, '데이터 시각화', '생능출판사', 27000);*/
+
+-- 기타 제약조건
