@@ -209,3 +209,8 @@ insert into newBook(bookid, bookname, publisher, price)
 values(null, '데이터 시각화', '생능출판사', 27000);*/
 
 -- 기타 제약조건
+-- 데이터 삽입하기
+/*insert into newBook (bookid, bookname, publisher, price) 
+values (101, null, null, 25000);*/
+
+select * from newBook;
