@@ -183,8 +183,7 @@ select * from book;
 alter table book modify isbn int;
 
 -- Book 테이블의 isbn 속성의 이름을 '일련번호'로 변경
--- alter table book change isbn 일련번호 int;
-alter table book change 일렬번호 일련번호 int;
+alter table book change isbn 일련번호 int;
 
 -- Book 테이블의 일련번호 속성을 삭제
 alter table book drop column 일련번호;
