@@ -214,3 +214,8 @@ values(null, '데이터 시각화', '생능출판사', 27000);*/
 values (101, null, null, 25000);*/
 
 select * from newBook;
+
+-- 실습 NOT NULL
+-- 테이블 속성 변경하기
+alter table newBook modify bookname varchar(20) not null;
+alter table newBook modify publisher varchar(20) not null;
