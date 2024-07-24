@@ -187,3 +187,19 @@ alter table book change isbn 일련번호 int;
 
 -- Book 테이블의 일련번호 속성을 삭제
 alter table book drop column 일련번호;
+
+-- newBook 테이블 생성하기 bookid를 기본키로 지정
+create table newBook(
+	bookid int primary key,
+    bookname varchar(20),
+    publisher varchar(20),
+    price int
+);
+
+-- 데이터 삽입하기
+/*insert into newBook(bookid, bookname, publisher, price)
+values(100, '데이터베이스', '한빛아카데미', 27000);
+insert into newBook(bookid, bookname, publisher, price)
+values(100, '프로그래밍', '한빛아카데미', 30000);
+insert into newBook(bookid, bookname, publisher, price)
+values(null, '데이터 시각화', '생능출판사', 27000);*/
