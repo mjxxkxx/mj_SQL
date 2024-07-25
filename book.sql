@@ -200,7 +200,7 @@ create table newBook(
 /*insert into newBook(bookid, bookname, publisher, price)
 values(100, '데이터베이스', '한빛아카데미', 27000);
 
--- 기본키 중복 불가
+-- primary 에러발생
 insert into newBook(bookid, bookname, publisher, price)
 values(100, '프로그래밍', '한빛아카데미', 30000); 기본키로 저장됐어서 중복으로 저장 못해!
 
@@ -208,14 +208,145 @@ values(100, '프로그래밍', '한빛아카데미', 30000); 기본키로 저장
 insert into newBook(bookid, bookname, publisher, price)
 values(null, '데이터 시각화', '생능출판사', 27000);*/
 
--- 기타 제약조건
--- 데이터 삽입하기
-/*insert into newBook (bookid, bookname, publisher, price) 
-values (101, null, null, 25000);*/
 
 select * from newBook;
 
 -- 실습 NOT NULL
--- 테이블 속성 변경하기
-alter table newBook modify bookname varchar(20) not null;
-alter table newBook modify publisher varchar(20) not null;
+
+-- 테이블 속성 변경하기 : bookname과 publisher에 null을 들어가지 못하도록 하는 함수!
+
+-- ALTER 함수는 계속적으로 저장되는 함수임
+
+ALTER TABLE newBook MODIFY bookname VARCHAR(20) NOT NULL;
+
+ALTER TABLE newBook MODIFY publisher VARCHAR(20) NOT NULL;
+
+ALTER TABLE newBook MODIFY publisher VARCHAR(20) NULL;
+-- 이후 이전에 실행가능했던 아래의 쿼리를 실행할 수 없음 : 
+-- 설정하기전 디폴트 값은 null 허용
+
+insert into newBook(bookid, bookname, publisher, price) 
+values(101,null,null,25000);
+-- 위의 bookname, publisher에 null이 들어가있는 이유 : 
+-- bookid는 primary key를 지정해줬지만, name과 publisher는 키를 입력하지 않았기때문에 null이 들어갈 수 있음 
+
+insert into newBook(bookid, bookname, publisher, price) 
+values(102,'데이터시각화','생능출판사',25000);
+
+select * from newBook;
+
+alter TABLE newBook MODIFY price INT default 10000;
+
+-- 기본 값 확인
+insert into newBook(bookid, bookname, publisher) 
+values (103, '프로그래밍','한빛아카데미');
+select * from newBook;
+
+-- default 10000을 지정하지 않았을 때의 기본 값은 default null
+insert into newBook(bookid, bookname, publisher,price) 
+values (104, '프로그래밍','한빛아카테미',null);
+select * from newBook;
+
+-- 외래키 : 다른 릴레이션(테이블)의 기본키를 참조하는 속성
+-- 기존 데이터 모두 제거 후 입력
+
+delete from newBook;
+
+-- 아래의 항목 추가해 두기 : ppt 2.SQL 111p
+
+INSERT INTO newBook (bookid, bookname, publisher, price) 
+values (100, '데이터베이스', '한빛아카데미', 27000);
+INSERT INTO newBook (bookid, bookname, publisher, price) 
+values (101, '파이썬', '한빛아카데미', 22000);
+insert into newBook (bookid, bookname, publisher, price) 
+values (102, 'JSP 프로그래밍', '생능출판사', 26000);
+insert into newBook (bookid, bookname, publisher, price) 
+values (103, '자바스크립트', '길벗', 45000);
+insert into newBook (bookid, bookname, publisher, price) 
+values (104, '데이터베이스배움터', '생능출판사', 30000);
+insert into newBook (bookid, bookname, publisher, price) 
+values (105, 'HTML 기초', '한빛아카데미', 37000);
+insert into newBook (bookid, bookname, publisher, price) 
+values (106, '파이썬데이터', '이지스퍼블리싱', 25000);
+insert into newBook (bookid, bookname, publisher, price) 
+values (107, 'Chat GPT', '생능출판사', 29000);
+insert into newBook (bookid, bookname, publisher, price) 
+values (108, 'ReactJS', '이지스퍼블리싱', 41000);
+insert into newBook (bookid, bookname, publisher, price) 
+values (109, '홈페이지만들기', '한빛아카데미', 32000);
+insert into newBook (bookid, bookname, publisher, price) 
+values (110, '데이터시각화', '생능출판사', 27000);
+
+-- newOrders 테이블 생성 /ppt 2.SQL 114p
+
+CREATE TABLE newOrders(
+	orderid    VARCHAR(10)    primary key,
+	bookid    INT    NOT NULL,
+	member    VARCHAR(10)    NOT NULL,
+	address    VARCHAR(20)    NOT NULL,
+	foreign key(bookid) references newBook(bookid)
+);
+
+select * from newOrders;
+/* newOrders 테이블에 데이터 입력 */
+insert into newOrders(orderid, bookid, member, address) 
+values('p001',102,'정수아','서울');
+
+/* newOrders 테이블에 2번째 데이터 입력 */
+-- 오류의 이유 : bookid(여기서 120)가 참조테이블에 존재하지 않음
+insert into newOrders(orderid, bookid, member, address) 
+values('p002',120,'정수아','서울');
+
+-- newBook(참조테이블)의 데이터 삭제하기
+delete from newBook where bookid=102;
+
+/* 참조 테이블의 데이터까지 한번에 삭제하고 싶다면 외래키를 지정할때,
+ on delete cascade옵션을 추가하면 됨
+foreign key(속성이름)
+references 참조할테이블 이름(속성이름)on delete cascade
+*/
+
+-- newOrders 삭제 후 다시 입력 --
+delete from newOrders;
+
+insert into newOrders(orderid, bookid, member, address) 
+values ('p001', 102, '오한솔', '경기');
+insert into newOrders(orderid, bookid, member, address) 
+values ('p002', 107, '김현우', '서울');
+insert into newOrders(orderid, bookid, member, address) 
+values ('p003', 103, '박홍진', '부산');
+insert into newOrders(orderid, bookid, member, address) 
+values ('p004', 102, '김현우', '서울');
+insert into newOrders(orderid, bookid, member, address) 
+values ('p005', 104, '문종헌', '대전');
+insert into newOrders(orderid, bookid, member, address) 
+values ('p006', 105, '김현우', '서울');
+insert into newOrders(orderid, bookid, member, address) 
+values ('p007', 103, '이봉림', '부산');
+insert into newOrders(orderid, bookid, member, address) 
+values ('p008', 102, '정희성', '경기');
+insert into newOrders(orderid, bookid, member, address) 
+values ('p009', 107, '오한솔', '경기');
+insert into newOrders(orderid, bookid, member, address) 
+values ('p010', 103, '김현우', '서울');
+ 
+ /*
+두 테이블 연결하여 orderTable에서 책에 대한 정보 검색 : 조인 
+조인 : SELECT 테이블이름.열이름 FROM 참조할 테이블이름1, 테이블이름2 
+WHERE 조건 AND 테이블1.b = 테이블2.b(테이블1과 테이블2의 어떠한 열은 같다!)
+3개 이상의 테이블 사용도 가능, 테이블이름.열이름에서 테이블이름은 필수가 아니긴하지만 이해 및 가독성을 위해 작성해줌
+(두 테이블의 열이름이 같은 경우는 반드시 작성해야함)
+SELECT A.a,B.d FROM A, B WHERE 조건 AND A.b = B.b 
+SELECT a,d FROM A, B WHERE A.b = B.b */
+
+-- 김현우가 주문한 책 이름과 가격
+select newBook.bookname, newBook.price FROM newBook, newOrders 
+WHERE newOrders.member = "김현우" and newBook.bookid = newOrders.bookid;
+
+-- 실습2 : 운송장 번호 출력
+
+select *from newBook;
+select *from newOrders;
+
+select newOrders.orderid, newOrders.member,newBook.bookname,newBook.price,newOrders.address 
+FROM newBook, newOrders WHERE newOrders.bookid = newBook.bookid;
