@@ -70,16 +70,18 @@ curs = conn.cursor()
 # print(result)
 
 # # 동적 SQL 만들기 - 1
+# # 가격이 50만원~100만원 사이의 제품을 검색
 # sql = "select * from product where price between %s and %s"
 # curs.execute(sql, (500000,1000000))
 # result = curs.fetchall()
 # print(result)
 
-# 동적 SQL 만들기 - 2
-sql = "select avg(price), sum(amount) from product where price < %s"
-curs.execute(sql, 100000)
-result = curs.fetchall()
-print(result)
+# # 동적 SQL 만들기 - 2
+# # 가격이 10만원 미만인 제품들의 평균가와 수량의 합을 계산
+# sql = "select avg(price), sum(amount) from product where price < %s"
+# curs.execute(sql, 100000)
+# result = curs.fetchall()
+# print(result)
 
 # # commit 실행
 # conn.commit()
