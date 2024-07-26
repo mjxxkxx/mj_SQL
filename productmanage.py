@@ -24,10 +24,15 @@ while True:
         sql = "select * from product;"
         curs.execute(sql)
         result = curs.fetchall()
-        headers = ["제품번호", "제품명", "가격", "수량"]  # 테이블 헤더 정의
-        
-        # `tabulate`를 사용해 결과를 출력
-        print(tabulate(result, headers, tablefmt="plain")) 
+      
+        print("-" * 33)
+        print("제품번호  제품명  가격     수량")
+        print("-" * 33)
+    
+        for row in result:
+            print(f"{row[0]:<9} {row[1]:<4} {row[2]:<8} {row[3]:<5}")
+    
+        print("-" * 33)
 
     elif choice == 2:  # 제품검색
         name = input('제품명을 입력하세요:')
